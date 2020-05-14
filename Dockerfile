@@ -5,7 +5,7 @@ RUN echo "apt::install-recommends false; acquire::http::no-cache true; apt::get:
 WORKDIR /var/lib/apt/lists
 RUN apt update
 RUN apt install binutils
-ADD https://github.com/arnie97/dotfiles/raw/HEAD/bin/empty empty
+ADD https://github.com/arnie97/dotfiles/raw/HEAD/.local/bin/empty empty
 RUN echo iso-codes libgl1-mesa-dri tk | xargs -n 1 sh empty
 RUN dpkg -i *.deb
 RUN apt purge --autoremove binutils
