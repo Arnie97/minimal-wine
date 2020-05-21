@@ -4,14 +4,11 @@ RUN echo "apt::install-recommends false; acquire::http::no-cache true; apt::get:
 
 WORKDIR /var/lib/apt/lists
 RUN apt update
-RUN apt install binutils
-ADD https://github.com/arnie97/dotfiles/raw/HEAD/.local/bin/empty empty
-RUN echo iso-codes libgl1-mesa-dri tk | xargs -n 1 sh empty
-RUN dpkg -i *.deb
-RUN apt purge --autoremove binutils
-RUN apt install wine xauth xvfb x11vnc ttf-bitstream-vera
+RUN apt install python3-pip python3-setuptools
+RUN pip3 install --no-cache-dir requests cqhttp==1.2.3 pyquery mwclient apscheduler
 RUN rm -r *
+RUN ln -s /usr/share/python3/debpython/core.py /root/shell
 
 WORKDIR /root
-EXPOSE 5900/tcp
-ENV DISPLAY :0
+CMD /root/shell
+EXPOSE 7700/tcp
