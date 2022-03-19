@@ -4,8 +4,9 @@ RUN echo "apt::install-recommends false; acquire::http::no-cache true; apt::get:
 
 WORKDIR /var/lib/apt/lists
 RUN apt update
-RUN apt install python3-pip python3-setuptools busybox
-RUN pip3 install --no-cache-dir requests cqhttp==1.2.3 pyquery mwclient apscheduler
+RUN apt-mark auto $(apt-mark showmanual)
+RUN apt install python3 python3-pip python3-setuptools python3-pillow busybox sysv-rc libzbar0
+RUN pip3 install --no-cache-dir requests pyquery mwclient zhconv apscheduler https://github.com/brettatoms/zbar-ctypes/archive/refs/heads/master.zip https://github.com/arnie97/python-cqhttp/archive/refs/heads/master.zip
 RUN busybox --install
 RUN rm -r *
 RUN ln -s /usr/share/python3/debpython/core.py /root/shell
